@@ -12,10 +12,18 @@
     <script src="https://fb.me/react-dom-0.14.1.min.js"></script>
     <script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
 
+    <style>
+      #example {
+        color: blue;
+        margin: 20px;
+      }
+
+    </style>
   </head>
 
   <body>
 
+  <div id="example"></div>
 
     <script type="text/jsx">
 
@@ -29,7 +37,7 @@
       }
     });
 
-    React.render(<HelloWorld name="Karen1" />, document.body);
+    React.render(<HelloWorld name="Karen" />, document.getElementById('example'));
 
     </script>
   </body>
