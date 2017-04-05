@@ -23,13 +23,13 @@
       render: function(){
         return (
                 <div>
-                  <h1>Hello World! </h1>
+                  <h1>Hello {this.props.name}! </h1>
                 </div>
         );
       }
     });
 
-    React.render(<HelloWorld />, document.body);
+    React.render(<HelloWorld name="Karen1" />, document.body);
 
     </script>
   </body>
