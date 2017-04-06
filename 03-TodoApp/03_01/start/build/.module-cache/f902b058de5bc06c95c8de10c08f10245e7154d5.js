@@ -4,7 +4,7 @@ var Todo = React.createClass({displayName: "Todo",
 
     return (
 
-      React.createElement("div", null, 
+      React.createElement("div", null,
         React.createElement("h1", null, "Things to DO")
       )
 
