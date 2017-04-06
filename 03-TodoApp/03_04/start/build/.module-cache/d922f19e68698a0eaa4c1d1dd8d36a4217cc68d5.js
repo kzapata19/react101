@@ -16,9 +16,7 @@ var Todo = React.createClass({displayName: "Todo",
                           this.props.children
                         ), 
 
-                        React.createElement("button", {onClick: this.remove, 
-                            className: "btn btn-default btn-sm" + ' ' +
-                            "glyphicon glyphicon-trash remove pull-right"})
+                        React.createElement("button", {className: "btn btn-default btn-sm glyphicon glyphicon-trash"})
                     )
 
        );

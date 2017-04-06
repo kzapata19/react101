@@ -1,13 +1,26 @@
 var Todo = React.createClass({
 
+    edit: function(){
+        alert('edit todo');
+    },
+
+    remove: function(){
+        alert('Todo removed');
+    },
+
     render: function() {
 
            return (
-            <div>
+                    <li className="todo">
+                        <span onClick={this.edit}>
+                          {this.props.children}
+                        </span>
 
-                  <li className="todo">{this.props.children}</li>
+                        <button onClick={this.remove}
+                            className="btn btn-default btn-sm
+                            glyphicon glyphicon-trash remove pull-right" />
+                    </li>
 
-            </div>
        );
     },
 
@@ -21,7 +34,7 @@ React.render(<div>
                 <div className="form-inline">
 
                     <div className="form-group">
-                        <input className="form-control" placeholder="Add Todo" />
+                        <input className="form-control" placeholder='Add Todo' />
                         <button className="btn btn-default btn-sm">+</button>
                     </div>
 

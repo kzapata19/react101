@@ -14,11 +14,7 @@ var Todo = React.createClass({displayName: "Todo",
                     React.createElement("li", {className: "todo"}, 
                         React.createElement("span", {onClick: this.edit}, 
                           this.props.children
-                        ), 
-
-                        React.createElement("button", {onClick: this.remove, 
-                            className: "btn btn-default btn-sm" + ' ' +
-                            "glyphicon glyphicon-trash remove pull-right"})
+                        )
                     )
 
        );
