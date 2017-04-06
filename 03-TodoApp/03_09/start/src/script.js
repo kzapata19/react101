@@ -1,65 +1,67 @@
-var Todo = React.createClass({    
+var Todo = React.createClass({
     getInitialState: function () {
       return {editing:false}
     },
     edit: function() {
       // alert('edit todo');
       this.setState({editing: true});
-    }, 
+    },
 
     remove: function() {
 
-      alert('Todo removed');
+      // alert('Todo removed');
+      this.props.onRemove(this.props.index)
     },
     save: function() {
-        var val = this.refs.newValue.getDOMNode().value;
-        this.props.onChange(val, this.props.index);
+        var newValue = this.refs.newValue.getDOMNode().value;
+        this.props.onChange(newValue, this.props.index);
         this.setState({editing: false});
     },
     todoDisplay:function() {
 
         return (
-                          
-          <li className="todo">
+          <div>
 
-            <span onClick={this.edit}>
-              {this.props.children}
-            </span>
+            <li className="todo">
 
-            <button onClick={this.remove} className="btn btn-default btn-sm glyphicon glyphicon-trash remove pull-right" />
+              <span onClick={this.edit}>
+                {this.props.children}
+              </span>
+
+              <button onClick={this.remove} className="btn btn-default btn-sm glyphicon glyphicon-trash remove pull-right" />
 
 
-          </li>           
-            
+            </li>
+          </div>
        );
     },
     todoForm:function() {
       return (
-                          
-          <li className="todo">
+        <div>
+            <li className="todo">
 
-            <span>
-              <input type="text" placeholder="Edit Todo" ref="newValue" defaultValue={this.props.children} />
-            </span>
+              <span>
+                <input placeholder="Edit Todo" type="text" ref="newValue" defaultValue={this.props.children} />
+              </span>
 
-            <button onClick={this.save} className="btn btn-default btn-sm glyphicon glyphicon-floppy-disk remove pull-right" />
+              <button onClick={this.save} className="btn btn-default btn-sm glyphicon glyphicon-floppy-disk remove pull-right" />
 
 
-          </li>           
-            
+            </li>
+        </div>
        );
 
     },
     render: function() {
-      
+
       if(this.state.editing) {
         return this.todoForm();
       } else {
         return this.todoDisplay();
       }
-        
+
     },
-      
+
 
 });
 
@@ -74,24 +76,41 @@ var TodoList = React.createClass({
         todos: [
           'Call Henry',
           'Pay phone bill',
-          'Make dentist appt' 
+          'Make dentist appt'
 
         ]
     };
   },
-
+  add: function(){
+        var arr = this.state.todos;
+        var newTodo = this.refs.newTodo.getDOMNode().value;
+        console.log('New Todo: ' + newTodo);
+        arr.push(newTodo);
+        this.setState({todos: arr});
+  },
   update: function(newValue, i) {
 
     var arr = this.state.todos;
     arr[i] = newValue;
     this.setState({todos: arr});
   },
+
+  remove: function(i){
+    var arr = this.state.todos;
+    arr.splice(i, 1);
+    this.setState({todos: arr});
+    console.log('Todo#: ' + (i+1) + ' removed');
+
+  },
   eachTodo: function(todo, i) {
-    return <Todo key={i}
+    return (
+      <Todo       key={i}
                  index={i}
-                 onChange={this.update} >
-            {todo}
-           </Todo>
+                 onChange={this.update}
+                 onRemove={this.remove} >
+                 {todo}
+      </Todo>
+    );
   },
   render: function() {
 
@@ -104,8 +123,8 @@ var TodoList = React.createClass({
               <div className="form-inline">
 
                   <div className="form-group">
-                      <input className="form-control" placeholder='Add Todo' />
-                      <button className="btn btn-default btn-sm">+</button>
+                      <input ref="newTodo" className="form-control" placeholder='Add Todo' />
+                      <button onClick={this.add} className="btn btn-default btn-sm">+</button>
                   </div>
 
               </div>
