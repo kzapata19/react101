@@ -1,19 +1,16 @@
-var Todo = React.createClass({    
+var Todo = React.createClass({
 
     render: function() {
-      
+
            return (
             <div>
 
-                <ul>
-                  <li className="todo">{this.props.todo}</li>
-          
-                </ul>
+                  <li className="todo">{this.props.children}</li>
 
             </div>
        );
     },
-      
+
 
 });
 
@@ -24,13 +21,16 @@ React.render(<div>
                 <div className="form-inline">
 
                     <div className="form-group">
-                        <input className="form-control" placeholder="Add Todo" />               
-                        <button className="btn btn-default btn-sm">+</button>             
+                        <input className="form-control" placeholder="Add Todo" />
+                        <button className="btn btn-default btn-sm">+</button>
                     </div>
-             
+
                 </div>
 
-                <Todo todo="Call Henry"/>
-                <Todo todo="Pay phone bill"/>
-                <Todo todo="Make Dentist Appt"/>
+                    <ul>
+                        <Todo>Call Henry</Todo>
+                        <Todo>Pay phone bill</Todo>
+                        <Todo>Make Dentist Appt</Todo>
+                    </ul>
+
             </div>, document.getElementById('todo'));
