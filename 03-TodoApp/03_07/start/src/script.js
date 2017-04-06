@@ -1,11 +1,11 @@
-var Todo = React.createClass({    
+var Todo = React.createClass({
     getInitialState: function () {
       return {editing:false}
     },
     edit: function() {
       // alert('edit todo');
       this.setState({editing: true});
-    }, 
+    },
 
     remove: function() {
 
@@ -19,7 +19,7 @@ var Todo = React.createClass({
     todoDisplay:function() {
 
         return (
-                          
+
           <li className="todo">
 
             <span onClick={this.edit}>
@@ -29,13 +29,13 @@ var Todo = React.createClass({
             <button onClick={this.remove} className="btn btn-default btn-sm glyphicon glyphicon-trash remove pull-right" />
 
 
-          </li>           
-            
+          </li>
+
        );
     },
     todoForm:function() {
       return (
-                          
+
           <li className="todo">
 
             <span>
@@ -45,26 +45,41 @@ var Todo = React.createClass({
             <button onClick={this.save} className="btn btn-default btn-sm glyphicon glyphicon-floppy-disk remove pull-right" />
 
 
-          </li>           
-            
+          </li>
+
        );
 
     },
     render: function() {
-      
+
       if(this.state.editing) {
         return this.todoForm();
       } else {
         return this.todoDisplay();
       }
-        
+
     },
-      
+
 
 });
 
+var TodoList = React.createClass({
 
-React.render(<div>
+  getInitialState: function(){
+
+    return {
+
+      todos: [
+        'Call Henry',
+        'Pay phone bill',
+        'Make dentis appt'
+      ]
+
+    };
+  },
+
+  render: function(){
+    return(<div>
 
                 <h1>Things to DO</h1>
 
@@ -78,14 +93,18 @@ React.render(<div>
                 </div>
 
               <ul>
-                <Todo>Call Henry</Todo>
-                <Todo>Pay phone bill</Todo>
-                <Todo>Make dentist appt</Todo>
+                {this.state.todos.map(function(todo){
+                  return <Todo>{todo}</Todo>
+                })}
               </ul>
 
-            </div>, document.getElementById('todo'));
+            </div>
+    );
+  }
 
+});
 
+React.render(<TodoList />, document.getElementById('todo'));
 
 
 
