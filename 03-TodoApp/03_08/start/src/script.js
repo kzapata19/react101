@@ -1,11 +1,11 @@
-var Todo = React.createClass({    
+var Todo = React.createClass({
     getInitialState: function() {
         return {editing: false}
-    },    
+    },
     edit: function() {
-              
+
         this.setState({editing:true});
-      
+
     },
     remove: function() {
 
@@ -14,7 +14,8 @@ var Todo = React.createClass({
     },
     save: function() {
         var val = this.refs.newValue.getDOMNode().value;
-        alert('Todo: '+ val + ' saved!');
+
+        this.props.onChange(val, this.props.index);
         this.setState({editing:false});
     },
     todoDisplay: function() {
@@ -34,7 +35,7 @@ var Todo = React.createClass({
 
             </div>
         );
-    }, 
+    },
     todoForm: function() {
         return (
             <div>
@@ -42,40 +43,40 @@ var Todo = React.createClass({
                     <li className="todo">
 
                         <span>
-                            <input placeholder="Edit todo" type="text" ref="newValue" defaultValue={this.props.children}/>                             
+                            <input placeholder="Edit todo" type="text" ref="newValue" defaultValue={this.props.children}/>
                         </span>
 
                         <button onClick={this.save} className="btn btn-default btn-sm glyphicon glyphicon-floppy-disk pull-right"/>
 
 
                     </li>
-         
+
 
             </div>
         );
 
     },
     render: function() {
-      
+
        if(this.state.editing){
             return this.todoForm();
        } else {
             return this.todoDisplay();
        }
-            
+
     },
-      
+
 
 });
 
 var TodoList = React.createClass({
 
     getInitialState: function() {
-  
+
         return {
             todos: [
-                'Call Amy', 
-                'Pay phone bill', 
+                'Call Amy',
+                'Pay phone bill',
                 'Christmas cards'
             ]
         };
@@ -83,8 +84,18 @@ var TodoList = React.createClass({
     eachTodo: function (todo,i) {
 
             return (
-                <Todo>{todo}</Todo>
+                <Todo key={i}
+                      index={i}
+                      onChange={this.update}>
+                    {todo}
+                </Todo>
             )
+    },
+    update: function(newValue, i){
+        var arr = this.state.todos;
+        arr[i] = newValue;
+        this.setState({todos: arr});
+
     },
     render: function() {
 
@@ -95,14 +106,14 @@ var TodoList = React.createClass({
                 <div className="form-inline">
 
                     <div className="form-group">
-                        <input className="form-control" placeholder="Add Todo" />               
-                        <button className="btn btn-default btn-sm">+</button>             
+                        <input className="form-control" placeholder="Add Todo" />
+                        <button className="btn btn-default btn-sm">+</button>
                     </div>
-             
+
                 </div>
 
                 <ul>
-                    {this.state.todos.map(this.eachTodo)}                 
+                    {this.state.todos.map(this.eachTodo)}
                 </ul>
 
             </div>
