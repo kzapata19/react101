@@ -1,4 +1,4 @@
-var Todo = React.createClass({
+var Todo = React.createClass({displayName: "Todo",
     getInitialState: function () {
       return {editing:false}
     },
@@ -21,32 +21,32 @@ var Todo = React.createClass({
 
         return (
 
-          <li className="todo">
+          React.createElement("li", {className: "todo"}, 
 
-            <span onClick={this.edit}>
-              {this.props.children}
-            </span>
+            React.createElement("span", {onClick: this.edit}, 
+              this.props.children
+            ), 
 
-            <button onClick={this.remove} className="btn btn-default btn-sm glyphicon glyphicon-trash remove pull-right" />
+            React.createElement("button", {onClick: this.remove, className: "btn btn-default btn-sm glyphicon glyphicon-trash remove pull-right"})
 
 
-          </li>
+          )
 
        );
     },
     todoForm:function() {
       return (
 
-          <li className="todo">
+          React.createElement("li", {className: "todo"}, 
 
-            <span>
-              <input type="text" placeholder="Edit Todo" ref="newValue" defaultValue={this.props.children} />
-            </span>
+            React.createElement("span", null, 
+              React.createElement("input", {type: "text", placeholder: "Edit Todo", ref: "newValue", defaultValue: this.props.children})
+            ), 
 
-            <button onClick={this.save} className="btn btn-default btn-sm glyphicon glyphicon-floppy-disk remove pull-right" />
+            React.createElement("button", {onClick: this.save, className: "btn btn-default btn-sm glyphicon glyphicon-floppy-disk remove pull-right"})
 
 
-          </li>
+          )
 
        );
 
@@ -67,7 +67,7 @@ var Todo = React.createClass({
 
 
 
-var TodoList = React.createClass({
+var TodoList = React.createClass({displayName: "TodoList",
 
   getInitialState: function() {
     return {
@@ -114,36 +114,36 @@ var TodoList = React.createClass({
     console.log('Todo#: '+(i+1)+ ' removed');
   },
   eachTodo: function(todo, i) {
-    return <Todo key={i}
-                 index={i}
-                 onChange={this.update}
-                 onRemove={this.remove}  >
-            {todo}
-           </Todo>
+    return React.createElement(Todo, {key: i, 
+                 index: i, 
+                 onChange: this.update, 
+                 onRemove: this.remove}, 
+            todo
+           )
   },
   render: function() {
 
     return  (
 
-        <div>
+        React.createElement("div", null, 
 
-              <h1>Things to DO</h1>
+              React.createElement("h1", null, "Things to DO"), 
 
-              <div className="form-inline">
+              React.createElement("div", {className: "form-inline"}, 
 
-                  <div className="form-group">
-                      <input ref="newTodo" className={this.state.input_style} placeholder={this.state.placeholder} value={this.state.text} onChange={this.onChange}/>
-                      <button onClick={this.add} className="btn btn-default btn-sm">+</button>
-                  </div>
+                  React.createElement("div", {className: "form-group"}, 
+                      React.createElement("input", {ref: "newTodo", className: this.state.input_style, placeholder: this.state.placeholder, value: this.state.text, onChange: this.onChange}), 
+                      React.createElement("button", {onClick: this.add, className: "btn btn-default btn-sm"}, "+")
+                  )
 
-              </div>
+              ), 
 
-            <ul>
-              {this.state.todos.map(this.eachTodo)}
+            React.createElement("ul", null, 
+              this.state.todos.map(this.eachTodo)
 
-            </ul>
+            )
 
-          </div>
+          )
       );
   }
 
@@ -151,7 +151,7 @@ var TodoList = React.createClass({
 });
 
 
-React.render(<TodoList />, document.getElementById('todo'));
+React.render(React.createElement(TodoList, null), document.getElementById('todo'));
 
 
 
